@@ -44,26 +44,12 @@ func TestMultiplication(t *testing.T) {
 }
 
 func TestEquality(t *testing.T) {
-	t.Run("Dollar", func(t *testing.T) {
-		five := money.Dollar(5)
-		six := money.Dollar(6)
+	five := money.Dollar(5)
+	six := money.Dollar(6)
+	assert.True(t, money.IsEqual(five, five))
+	assert.False(t, money.IsEqual(five, six))
 
-		assert.True(t, money.IsEqual(five, five))
-		assert.False(t, money.IsEqual(five, six))
-	})
-
-	t.Run("Franc", func(t *testing.T) {
-		five := money.Franc(5)
-		six := money.Franc(6)
-
-		assert.True(t, money.IsEqual(five, five))
-		assert.False(t, money.IsEqual(five, six))
-	})
-
-	t.Run("Dollars with Francs", func(t *testing.T) {
-		dollar := money.Dollar(5)
-		franc := money.Franc(5)
-
-		assert.False(t, money.IsEqual(dollar, franc))
-	})
+	dollar := money.Dollar(5)
+	franc := money.Franc(5)
+	assert.False(t, money.IsEqual(dollar, franc))
 }
