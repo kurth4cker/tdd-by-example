@@ -1,7 +1,35 @@
 package money
 
-type Dollar int
+type Money struct {
+	Currency string
+	Amount   int
+}
 
-func (d Dollar) Times(multiplier int) Dollar {
-	return d * Dollar(multiplier)
+func (m Money) Times(multiplier int) Money {
+	return Money{
+		Currency: m.Currency,
+		Amount:   m.Amount * multiplier,
+	}
+}
+
+func Currency(money Money) string {
+	return money.Currency
+}
+
+func Dollar(amount int) Money {
+	return Money{
+		Currency: "USD",
+		Amount:   amount,
+	}
+}
+
+func Franc(amount int) Money {
+	return Money{
+		Currency: "CHF",
+		Amount:   amount,
+	}
+}
+
+func IsEqual(m1, m2 Money) bool {
+	return m1 == m2
 }
