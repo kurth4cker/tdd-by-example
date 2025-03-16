@@ -90,10 +90,6 @@ func (m Money) Times(multiplier int) Expression {
 	}
 }
 
-func Currency(money Money) string {
-	return money.Currency()
-}
-
 func Dollar(amount int) Money {
 	return Money{
 		currency: "USD",

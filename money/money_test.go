@@ -108,16 +108,6 @@ func TestMoney_Currency(t *testing.T) {
 	assert.Equal(t, franc.Currency(), "CHF")
 }
 
-func TestCurrency(t *testing.T) {
-	dollar := money.Dollar(1)
-	currency := money.Currency(dollar)
-	assert.Equal(t, currency, "USD")
-
-	franc := money.Franc(1)
-	currency = money.Currency(franc)
-	assert.Equal(t, currency, "CHF")
-}
-
 func TestMultiplication(t *testing.T) {
 	t.Run("Dollar", func(t *testing.T) {
 		five := money.Dollar(5)
