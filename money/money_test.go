@@ -86,7 +86,29 @@ func TestSum_Add(t *testing.T) {
 	assert.Equal(t, got, want)
 }
 
+func TestSum_Times(t *testing.T) {
+	fiveDollars := money.Dollar(5)
+	tenFrancs := money.Franc(10)
+
+	bank := money.NewBank()
+	bank.AddRate("CHF", "USD", 2)
+
+	sum := money.Sum{fiveDollars, tenFrancs}.Times(2)
+
+	got := bank.Reduce(sum, "USD")
+	want := money.Dollar(20)
+	assert.Equal(t, got, want)
+}
+
 func TestMoney_Currency(t *testing.T) {
+	dollar := money.Dollar(1)
+	assert.Equal(t, dollar.Currency(), "USD")
+
+	franc := money.Franc(1)
+	assert.Equal(t, franc.Currency(), "CHF")
+}
+
+func TestCurrency(t *testing.T) {
 	dollar := money.Dollar(1)
 	currency := money.Currency(dollar)
 	assert.Equal(t, currency, "USD")

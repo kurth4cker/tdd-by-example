@@ -16,7 +16,14 @@ func (s Sum) Reduce(bank Bank, to string) Money {
 		s.Addend.Reduce(bank, to).Amount
 	return Money{
 		Amount:   amount,
-		Currency: to,
+		currency: to,
+	}
+}
+
+func (s Sum) Times(multiplier int) Expression {
+	return Sum{
+		Augend: s.Augend.Times(multiplier),
+		Addend: s.Addend.Times(multiplier),
 	}
 }
 
@@ -49,49 +56,54 @@ func (b Bank) Rate(from, to string) int {
 type Expression interface {
 	Add(addend Expression) Expression
 	Reduce(bank Bank, currency string) Money
+	Times(multiplier int) Expression
 }
 
 type Money struct {
-	Currency string
+	currency string
 	Amount   int
 }
 
-func (m Money) Add(other Expression) Expression {
+func (m Money) Add(addend Expression) Expression {
 	return Sum{
 		Augend: m,
-		Addend: other,
+		Addend: addend,
 	}
 }
 
+func (m Money) Currency() string {
+	return m.currency
+}
+
 func (m Money) Reduce(bank Bank, to string) Money {
-	rate := bank.Rate(m.Currency, to)
+	rate := bank.Rate(m.currency, to)
 	return Money{
 		Amount:   m.Amount / rate,
-		Currency: to,
+		currency: to,
 	}
 }
 
 func (m Money) Times(multiplier int) Expression {
 	return Money{
-		Currency: m.Currency,
+		currency: m.currency,
 		Amount:   m.Amount * multiplier,
 	}
 }
 
 func Currency(money Money) string {
-	return money.Currency
+	return money.Currency()
 }
 
 func Dollar(amount int) Money {
 	return Money{
-		Currency: "USD",
+		currency: "USD",
 		Amount:   amount,
 	}
 }
 
 func Franc(amount int) Money {
 	return Money{
-		Currency: "CHF",
+		currency: "CHF",
 		Amount:   amount,
 	}
 }
