@@ -134,7 +134,7 @@ func TestMultiplication(t *testing.T) {
 	})
 }
 
-func TestEquality(t *testing.T) {
+func TestIsEqual(t *testing.T) {
 	five := money.Dollar(5)
 	six := money.Dollar(6)
 	assert.True(t, money.IsEqual(five, five))
