@@ -86,14 +86,14 @@ func TestSum_Add(t *testing.T) {
 	assert.Equal(t, got, want)
 }
 
-func TestCurrency(t *testing.T) {
+func TestMoney_Currency(t *testing.T) {
 	dollar := money.Dollar(1)
-	dollarCurrency := money.Currency(dollar)
-	assert.Equal(t, dollarCurrency, "USD")
+	currency := money.Currency(dollar)
+	assert.Equal(t, currency, "USD")
 
 	franc := money.Franc(1)
-	francCurrency := money.Currency(franc)
-	assert.Equal(t, francCurrency, "CHF")
+	currency = money.Currency(franc)
+	assert.Equal(t, currency, "CHF")
 }
 
 func TestMultiplication(t *testing.T) {
